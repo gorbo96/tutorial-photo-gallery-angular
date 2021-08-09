@@ -1,22 +1,32 @@
 import { Component } from '@angular/core';
-import { SplashScreen } from '@capacitor/splash-screen'
+import { AlertController } from '@ionic/angular';
 @Component({
   selector: 'app-root',
   templateUrl: 'app.component.html',
-  styleUrls: ['app.component.scss']
+  styleUrls: ['app.component.scss'],
 })
 export class AppComponent {
-  constructor() {
-    this.initializeApp();
-  }
+  public appPages = [
+    { title: 'Acerca De:', url: '/acerca', icon: 'information-circle' },
+    { title: 'Listado:', url: '/listado', icon: 'information-circle'},
+    { title: 'Mapa:', url: '/mapa', icon: 'information-circle' },
+    { title: 'Login:', url: '/login', icon: 'information-circle'},
+  ];
+  public labels = ['Otros'];
+  public nombre = "Martin Bojorque";
+  constructor(public alertController: AlertController) {}
+  async presentAlert() {
+    const alert = await this.alertController.create({
+      cssClass: 'Clase nueva',
+      header: 'Alerta',
+      subHeader: 'Subtitulo',
+      message: 'Alerta',
+      buttons: ['OK']
+    });
 
-  initializeApp() {
-    /* To make sure we provide the fastest app loading experience
-       for our users, hide the splash screen automatically
-       when the app is ready to be used:
+    await alert.present();
 
-        https://capacitor.ionicframework.com/docs/apis/splash-screen#hiding-the-splash-screen
-    */
-    SplashScreen.hide();
+    const { role } = await alert.onDidDismiss();
+    console.log('onDidDismiss resolved with role', role);
   }
 }

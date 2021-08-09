@@ -1,0 +1,15 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>Login</ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <p>
+      Autenticacion:  {{ (auth.user | async)?.uid | json }} {{ (auth.credential | async)?.additionalUserInfo.isNewUser | json }}
+      <ion-button expand="block" (click)="login()" *ngIf="showLoginButton">Iniciar Sesion con google</ion-button>
+      <ion-button expand="block" (click)="logout()" *ngIf="showLogoutButton">Cerrar Sesion</ion-button>
+  </p>
+</ion-content>
